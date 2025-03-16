@@ -1,15 +1,21 @@
 import React from "react";
 
-const Sort = ({ onSort }) => {
+const Sort = (propsData) => {
+
+
+    function sortData(){
+
+    }
+
     return (
         <div>
             <label>
                 Сортировка
                 {/*onChange={(e) => onSort(e.target.value)}*/}
-                <select>
-                    <option value="">None</option>
-                    <option value="balance">Balance</option>
-                    <option value="email">Email</option>
+                <select onChange={}>
+                    <option value="">Нет</option>
+                    <option value="balance">Баланс</option>
+                    <option value="email">Почта</option>
                 </select>
             </label>
         </div>

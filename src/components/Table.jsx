@@ -2,30 +2,24 @@ import React from "react";
 import TableRow from "./TableRow";
 
 const Table = ({data}) => {
-    function buildTree(items){
-        const hash = {}; //parent: [children1,...]
-        const filterItems = items.filter((i)=>{
-            if(i.parentId !== 0){
-                if(hash[i.parentId] === undefined){
-                    hash[i.parentId] = [i]
-                }else{
-                    hash[i.parentId].push(i)
+        function buildTree(items) {
+            const hash = {};
+            const root = [];
+            items.forEach((item) => {
+                hash[item.id] = { ...item, baby: [] };
+            });
+            items.forEach((item) => {
+                if (item.parentId === 0) {
+                    root.push(hash[item.id]);
+                } else {
+                    if (hash[item.parentId]) {
+                        hash[item.parentId].baby.push(hash[item.id]);
+                    }
                 }
-            }
-            return i.parentId === 0
-        })
-        return filterItems.map((i)=>{
-            if(hash[i.id] !== undefined){
-               return  {
-                   ...i,
-                   children: hash[i.id]
-               }
-            }else{
-                return i
-            }
-        })
-    }
-    const treeData = buildTree(data)
+            });
+            return root;
+        }
+        const treeData = buildTree(data)
 
     return (
         <table>

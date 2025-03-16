@@ -1,15 +1,35 @@
 import React from "react";
 
-const Filter = ({ onFilter }) => {
+const Filter = (propsData) => {
+
+    const {onFilter} = propsData;
+    const {data} = propsData;
+
+    function filterData (e){
+        switch (e.target.value){
+            case "true":{
+                onFilter(data.filter((row)=>true===row.isActive))
+                break;
+            }
+            case "false":{
+                onFilter(data.filter((row)=>false===row.isActive))
+                break;
+            }
+            case "all":{
+                onFilter(data)
+                break;
+            }
+        }
+    }
+
     return (
         <div>
             <label>
                 Фильтр по статусу:
-                {/*onChange={(e) => onFilter(e.target.value === "all" ? "all" : e.target.value === "true")}*/}
-                <select >
-                    <option value="all">All</option>
-                    <option value="true">Active</option>
-                    <option value="false">Inactive</option>
+                <select onChange={filterData}>
+                    <option value="all">Все</option>
+                    <option value="true">Активные</option>
+                    <option value="false">Неактивные</option>
                 </select>
             </label>
         </div>

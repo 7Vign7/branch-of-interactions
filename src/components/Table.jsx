@@ -4,18 +4,16 @@ import TableRow from "./TableRow";
 const Table = (propsData) => {
     let {data} = propsData
     const {statusFilter} = propsData
-    const filterData = [...data]
     switch (statusFilter){
         case "true":{
-            data = filterData.filter((row)=>true===row.isActive)
+            data = data.filter((row)=>true===row.isActive)
             break;
         }
         case "false":{
-            data = filterData.filter((row)=>false===row.isActive)
+            data = data.filter((row)=>false===row.isActive)
             break;
         }
         case "all":{
-            data = filterData
             break;
         }
     }

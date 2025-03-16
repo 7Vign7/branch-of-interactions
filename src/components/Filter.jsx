@@ -1,27 +1,10 @@
 import React from "react";
 
 const Filter = (propsData) => {
-
-    const {onFilter} = propsData;
-    const {data} = propsData;
-
-    function filterData (e){
-        switch (e.target.value){
-            case "true":{
-                onFilter(data.filter((row)=>true===row.isActive))
-                break;
-            }
-            case "false":{
-                onFilter(data.filter((row)=>false===row.isActive))
-                break;
-            }
-            case "all":{
-                onFilter(data)
-                break;
-            }
-        }
+    const {statusFilter} = propsData;
+    function filterData (status){
+        statusFilter(status.target.value)
     }
-
     return (
         <div>
             <label>

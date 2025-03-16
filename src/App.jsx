@@ -7,28 +7,27 @@ import axios from "axios";
 
 const App = () => {
     const [data,setData] = useState([]);
-    const [filterData, setFilterData] =useState([]);
-
+    const [filterData, setFilterData] = useState("all");
+    const [sortData, setSortData] = useState([]);
     useEffect(()=>{
         (async function getData(){
             try{
                 const response  = await axios.get("http://localhost:3000/sever")
                 setData(response.data)
-                setFilterData(response.data)
+                setSortData(response.data)
             }catch(e){
                 console.error(e)
             }
         })()
     },[]);
-
     return (
         <div className="app">
             <h1>Таблица пользователей</h1>
             <div>
-                <Filter data={data} onFilter={setFilterData} />
-                <Sort data={data} onSort={setData} />
+                <Filter statusFilter={setFilterData}/>
+                <Sort data={data} onSort={setSortData} />
             </div>
-            <Table data={filterData} />
+            <Table data={sortData} statusFilter={filterData}/>
         </div>
     );
 };

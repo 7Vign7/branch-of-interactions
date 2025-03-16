@@ -1,8 +1,25 @@
 import React from "react";
 import TableRow from "./TableRow";
 
-const Table = ({data}) => {
-        function buildTree(items) {
+const Table = (propsData) => {
+    let {data} = propsData
+    const {statusFilter} = propsData
+    const filterData = [...data]
+    switch (statusFilter){
+        case "true":{
+            data = filterData.filter((row)=>true===row.isActive)
+            break;
+        }
+        case "false":{
+            data = filterData.filter((row)=>false===row.isActive)
+            break;
+        }
+        case "all":{
+            data = filterData
+            break;
+        }
+    }
+    function buildTree(items) {
             const hash = {};
             const root = [];
             items.forEach((item) => {
@@ -18,8 +35,8 @@ const Table = ({data}) => {
                 }
             });
             return root;
-        }
-        const treeData = buildTree(data)
+    }
+    const treeData = buildTree(data)
 
     return (
         <table>
